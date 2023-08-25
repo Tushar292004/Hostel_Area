@@ -4,14 +4,14 @@ document.addEventListener("DOMContentLoaded", function() {
     const message = document.getElementById("message");
     const closeBtn = document.getElementById("closeBtn");
 
-    // Define the latitude and longitude coordinates for Times Square, New York
-    const timesSquareCoordinates = {
-        latitude: 40.758896,
-        longitude: -73.985130
+    // Define the latitude and longitude coordinates for Sathyabama University, Chennai
+    const sathyabamaCoordinates = {
+        latitude: 12.9167, // Replace with the latitude of Sathyabama University
+        longitude: 80.1222 // Replace with the longitude of Sathyabama University
     };
 
-    // Define a radius for the Times Square area (you can adjust this as needed)
-    const timesSquareRadius = 0.01; // This is a small radius for demonstration purposes
+    // Define a radius for the Sathyabama University area (you can adjust this as needed)
+    const sathyabamaRadius = 0.02; // This is a small radius for demonstration purposes
 
     getLocationButton.addEventListener("click", function() {
         if ("geolocation" in navigator) {
@@ -20,14 +20,14 @@ document.addEventListener("DOMContentLoaded", function() {
                 const userLatitude = position.coords.latitude;
                 const userLongitude = position.coords.longitude;
 
-                // Calculate the distance between user's location and Times Square
-                const distance = calculateDistance(userLatitude, userLongitude, timesSquareCoordinates.latitude, timesSquareCoordinates.longitude);
+                // Calculate the distance between user's location and Sathyabama University
+                const distance = calculateDistance(userLatitude, userLongitude, sathyabamaCoordinates.latitude, sathyabamaCoordinates.longitude);
 
-                // Check if the user's location is within the predefined radius of Times Square
-                if (distance <= timesSquareRadius) {
-                    message.textContent = "Your location is near Times Square, New York.";
+                // Check if the user's location is within the predefined radius of Sathyabama University
+                if (distance <= sathyabamaRadius) {
+                    message.textContent = "Your location is near Sathyabama University, Chennai.";
                 } else {
-                    message.textContent = "Your location is not near Times Square, New York.";
+                    message.textContent = "Your location is not near Sathyabama University, Chennai.";
                 }
 
                 resultPopup.style.display = "block";
