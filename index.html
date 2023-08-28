@@ -1,20 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <title>Location Checker</title>
+    <title>Location Pop-up</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+
 </head>
 <body>
-    <div class="container">
-        <h1>Location Checker</h1>
-        <button id="getLocation">Get My Location</button>
-    </div>
-    <div id="result" class="popup">
-        <p id="message"></p>
-        <button id="closeBtn">Close</button>
-    </div>
+    <h1>Welcome to Sathyabama University</h1>
+    <!-- Add this div to display the user's location -->
+    <div id="userLocation"></div>
+    <p>Find out if you're near the university.</p>
+    <button id="checkLocation">Check Location</button>
+
+    <div id="result"></div>
+
+    <!-- Add input fields for latitude and longitude -->
+    <label for="latitude">Enter Latitude:</label>
+    <input type="text" id="latitude" placeholder="Latitude">
+    <br>
+    <label for="longitude">Enter Longitude:</label>
+    <input type="text" id="longitude" placeholder="Longitude">
+    <br>
+    <button id="checkCustomLocation">Check Custom Location</button>
+
     <script src="script.js"></script>
 </body>
 </html>

@@ -1,56 +1,87 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const getLocationButton = document.getElementById("getLocation");
-    const resultPopup = document.getElementById("result");
-    const message = document.getElementById("message");
-    const closeBtn = document.getElementById("closeBtn");
+// Get a reference to the button and result div
+const checkLocationButton = document.getElementById("checkLocation");
+const resultDiv = document.getElementById("result");
 
-    // Define the latitude and longitude coordinates for Sathyabama University, Chennai
-    const sathyabamaCoordinates = {
-        latitude: 12.9167, // Replace with the latitude of Sathyabama University
-        longitude: 80.1222 // Replace with the longitude of Sathyabama University
-    };
+//St.Anthony Illam Boys Hostel coordinates (latitude and longitude)
+const universityLat = 12.870395999094573;
+const universityLng = 80.22424001419108
+;
 
-    // Define a radius for the Sathyabama University area (you can adjust this as needed)
-    const sathyabamaRadius = 0.02; // This is a small radius for demonstration purposes
+// Radius in meters
+const radius = 45.2;
 
-    getLocationButton.addEventListener("click", function() {
-        if ("geolocation" in navigator) {
-            // Use the Geolocation API to get the user's location
-            navigator.geolocation.getCurrentPosition(function(position) {
-                const userLatitude = position.coords.latitude;
-                const userLongitude = position.coords.longitude;
+// Function to calculate the distance between two points using the Haversine formula
+function calculateDistance(lat1, lon1, lat2, lon2) {
+    const R = 6371; // Radius of the Earth in kilometers
+    const dLat = (lat2 - lat1) * (Math.PI / 180);
+    const dLon = (lon2 - lon1) * (Math.PI / 180);
+    const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+              Math.cos(lat1 * (Math.PI / 180)) * Math.cos(lat2 * (Math.PI / 180)) *
+              Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    const distance = R * c * 1000; // Distance in meters
+    return distance;
+}
 
-                // Calculate the distance between user's location and Sathyabama University
-                const distance = calculateDistance(userLatitude, userLongitude, sathyabamaCoordinates.latitude, sathyabamaCoordinates.longitude);
+// Function to check the user's location
+function checkLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            const userLat = position.coords.latitude;
+            const userLng = position.coords.longitude;
+            const distance = calculateDistance(userLat, userLng, universityLat, universityLng);
 
-                // Check if the user's location is within the predefined radius of Sathyabama University
-                if (distance <= sathyabamaRadius) {
-                    message.textContent = "Your location is near Sathyabama University, Chennai.";
-                } else {
-                    message.textContent = "Your location is not near Sathyabama University, Chennai.";
-                }
+            // Display the user's location
+            const userLocationDiv = document.getElementById("userLocation");
+            userLocationDiv.innerHTML = `Your Location: Latitude ${userLat.toFixed(6)}, Longitude ${userLng.toFixed(6)}`;
 
-                resultPopup.style.display = "block";
-            });
-        } else {
-            alert("Geolocation is not supported by your browser.");
-        }
-    });
-
-    closeBtn.addEventListener("click", function() {
-        resultPopup.style.display = "none";
-    });
-
-    // Function to calculate the distance between two sets of latitude and longitude coordinates
-    function calculateDistance(lat1, lon1, lat2, lon2) {
-        const radlat1 = Math.PI * lat1 / 180;
-        const radlat2 = Math.PI * lat2 / 180;
-        const theta = lon1 - lon2;
-        const radtheta = Math.PI * theta / 180;
-        let dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
-        dist = Math.acos(dist);
-        dist = dist * 180 / Math.PI;
-        dist = dist * 60 * 1.1515; // Distance in miles
-        return dist;
+            if (distance <= radius) {
+                resultDiv.innerHTML = "You are in St.Anthony Illam Boys Hostel.";
+                resultDiv.classList.add("popup"); // Add the popup class
+            } else {
+                resultDiv.innerHTML = "You are not in St.Anthony Illam Boys Hostel.";
+                resultDiv.classList.remove("popup"); // Remove the popup class if not near
+            }
+        });
+    } else {
+        resultDiv.innerHTML = "Geolocation is not supported by your browser.";
     }
-});
+}
+
+
+// Add a click event listener to the button
+checkLocationButton.addEventListener("click", checkLocation);
+
+
+// Get references to the custom location input fields and button
+const latitudeInput = document.getElementById("latitude");
+const longitudeInput = document.getElementById("longitude");
+const checkCustomLocationButton = document.getElementById("checkCustomLocation");
+
+// Function to check a custom location
+function checkCustomLocation() {
+    const userLat = parseFloat(latitudeInput.value);
+    const userLng = parseFloat(longitudeInput.value);
+
+    if (isNaN(userLat) || isNaN(userLng)) {
+        resultDiv.innerHTML = "Please enter valid coordinates.";
+        resultDiv.classList.remove("popup");
+    } else {
+        const distance = calculateDistance(userLat, userLng, universityLat, universityLng);
+
+        // Display the user's custom location
+        const userLocationDiv = document.getElementById("userLocation");
+        userLocationDiv.innerHTML = `Your Custom Location: Latitude ${userLat.toFixed(6)}, Longitude ${userLng.toFixed(6)}`;
+
+        if (distance <= radius) {
+            resultDiv.innerHTML = "You are near St.Anthony Illam Boys Hostel.";
+            resultDiv.classList.add("popup");
+        } else {
+            resultDiv.innerHTML = "You are not near St.Anthony Illam Boys Hostel.";
+            resultDiv.classList.remove("popup");
+        }
+    }
+}
+
+// Add a click event listener to the custom location button
+checkCustomLocationButton.addEventListener("click", checkCustomLocation);
