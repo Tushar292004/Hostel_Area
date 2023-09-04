@@ -1,28 +1,57 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Location Pop-up</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
-
-</head>
-<body>
+  <head>
+    <title>Hostel Proximity Checker</title>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      integrity="sha512-iZ7J5XIBnQz0h/XbIMphDkGTfbyzB8dHtk5EAqkfUc5aF8mH5DEoayUC3Abp2YPZJGeqUHjR6b4MbJbEm7oh5yA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
     <h1>Welcome to Sathyabama University</h1>
-    <!-- Add this div to display the user's location -->
-    <div id="userLocation"></div>
-    <p>Find out if you're near the university.</p>
-    <button id="checkLocation">Check Location</button>
+    <p>Find out if you're near a university hostel.</p>
 
-    <div id="result"></div>
+    <!-- Hostel selection dropdown -->
+    <label for="hostel">Select Hostel:</label>
+    <select id="hostel">
+      <option value="university">St.Anthony Illam Boys Hostel</option>
+      <option value="mgr">MGR Illam Boys Hostel</option>
+      <option value="gopalakrishnan">Gopalakrishnan Illam Boys Hostel</option>
+    </select>
 
     <!-- Add input fields for latitude and longitude -->
     <label for="latitude">Enter Latitude:</label>
-    <input type="text" id="latitude" placeholder="Latitude">
-    <br>
+    <input type="text" id="latitude" placeholder="Latitude" />
+    <br />
     <label for="longitude">Enter Longitude:</label>
-    <input type="text" id="longitude" placeholder="Longitude">
-    <br>
-    <button id="checkCustomLocation">Check Custom Location</button>
+    <input type="text" id="longitude" placeholder="Longitude" />
+    <br />
+    <!-- Auto Location button -->
+    <button id="autoLocation">Get My Location</button>
+    <!-- Check Proximity button -->
+    <button id="checkCustomLocation">Check Proximity</button>
 
+    <div id="userLocation"></div>
+    <div id="result"></div>
+    
+    <!-- Add the closing icon to the attendance popup -->
+    <div id="attendancePopup" class="popup">
+        <i class="uil uil-times fas fa-times" id="closeIcon" ></i>
+      
+      <h2>Hostel Attendance</h2>
+      <p>Would you like to give attendance?</p>
+      <button id="giveAttendance">Give Attendance</button>
+      <div id="attendanceSuccess" style="display: none">
+        <p>Attendance given successfully!</p>
+        <img src="check-circle.svg" alt="Tick Icon" />
+      </div>
+    </div>
+    <!-- Script file -->
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
