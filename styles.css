@@ -140,7 +140,7 @@ button:hover {
 }
 
 #attendancePopup button:hover {
-    background-color: #0201005e;
+    background-color: rgba(244, 7, 7, 0.826);
 }
 
 #attendanceSuccess {

@@ -1,8 +1,8 @@
 // Coordinates and radii for different hostels
 const hostelData = {
-    university: { lat: 12.870395999094573, lng: 80.22424001419108, radius: 45.2 },
-    mgr: { lat: 12.871296988176596, lng: 80.21899597808388, radius: 70 },
-    gopalakrishnan: { lat: 12.872120382563974, lng: 80.21933513902287, radius: 50 }
+    St_Anthony_Illam_Boys_Hostel: { lat: 12.870395999094573, lng: 80.22424001419108, radius: 45.2 },
+    MGR_IllamBoys_Hostel: { lat: 12.871296988176596, lng: 80.21899597808388, radius: 70 },
+    Gopalakrishnan_Illam_Boys_Hostel: { lat: 12.872120382563974, lng: 80.21933513902287, radius: 50 }
 };
 
 // Get references to the HTML elements
@@ -114,5 +114,15 @@ function giveHostelAttendance() {
         }
     }
 }
+
+// Function to close the attendance popup
+function closeAttendancePopup() {
+    attendancePopup.style.display = "none";
+}
+
+// Add a click event listener to the close icon
+const closeIcon = document.getElementById("closeIcon");
+closeIcon.addEventListener("click", closeAttendancePopup);
+
 
 // ...
